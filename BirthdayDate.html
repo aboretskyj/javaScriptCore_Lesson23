@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="form.css">
+    <script src=https://momentjs.com/downloads/moment.js></script>
+    <title>Birthday date</title>
+</head>
+<body>
+    <div id="my-form-container">
+        <div class="form-wrapper" id="my-form-wrapper">
+            <form id="my-form">
+                <label>Enter date of your birth</label>
+                <input type="text" autocomplete="off" id="userBirthDate" placeholder="DD-MM-YYYY">  
+                <label>How much years you want to add:</label>
+                <input type="text" autocomplete="off" id="targetYear">  
+            </form>
+            <button id="button">GO!</button>
+        </div> 
+    </div>
+    <p id="result"></p>
+    
+    <script>
+
+        $( "#button" ).on( "click", function(){
+
+            var userDate = moment(($( "#userBirthDate" ).val()), "DD-MM-YYYY", true);
+            var extraYears = $( "#targetYear" ).val()
+            
+            if (userDate.isValid() && extraYears.match(/^[0-9]*$/)){
+                let day = userDate.add(extraYears, 'y').format("dddd");
+                $( "#my-form-container" ).hide( "fade");
+                setTimeout(function(){
+                    $("#result").append('After ' + extraYears + ' years <br>you\'ll selebrate your birthday in<br><span class ="day">' + day +'</span>'); 
+                }, 600);
+            } else $( "#my-form-wrapper" ).effect( "shake");
+        });
+        
+    </script>
+    
+</body>
+</html>
